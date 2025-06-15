@@ -29,6 +29,10 @@ echo [95m       CHASSIS
 echo [90m==========================[97m
 wmic systemenclosure get serialnumber | sort
 echo [90m==========================[97m
+echo [92m        TPM
+echo [90m==========================[97m
+powershell -Command "Try { $tpm = Get-WmiObject -Namespace 'Root\CIMv2\Security\MicrosoftTpm' -Class Win32_Tpm; if ($tpm) { Write-Host 'IsPresent: ' $tpm.IsEnabled; Write-Host 'ManufacturerID: ' $tpm.ManufacturerID; Write-Host 'ManufacturerVersion: ' $tpm.ManufacturerVersion; Write-Host 'SerialNumber (if available):' $tpm.SerialNumber } else { Write-Host 'TPM not found' } } Catch { Write-Host 'Error retrieving TPM info' }"
+echo [90m==========================[97m
 echo [93m       HARD DISK
 echo [90m==========================[97m
 wmic diskdrive get serialnumber | sort
